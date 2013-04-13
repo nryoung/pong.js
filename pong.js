@@ -17,7 +17,7 @@ function Ball(x, y, w, h, fill) {
     this.w = w;
     this.h = h;
     this.fill = fill;
-    
+
     // direction of where the ball is going
     this.vx = true;
     this.vy = true;
@@ -37,6 +37,12 @@ Ball.prototype.check_collide = function(ctx) {
     } else if (this.y === 0) {
         this.vy = true;
     }
+
+    if (this.x === width) {
+        this.vx = false;
+    } else if (this.x === 0) {
+        this.vx = true;
+    }
 }
 
 Ball.prototype.move = function(ctx) {
@@ -45,6 +51,12 @@ Ball.prototype.move = function(ctx) {
         this.y += 5;
     } else if (this.vy === false) {
         this.y -= 5;
+    }
+
+    if (this.vx == true) {
+        this.x += 5;
+    } else {
+        this.x -= 5;
     }
 }
 
@@ -71,7 +83,7 @@ function animate(b) {
 //-----------------------------------------------------------------------------
 
 
-// Init function 
+// Init function
 function init() {
     colorBackground();
     var b = new Ball(midX, midY, 5, 5, '#FFFFFF');
