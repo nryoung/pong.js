@@ -63,7 +63,21 @@ Ball.prototype.move = function(ctx) {
 //-----------------------------------------------------------------------------
 
 
+//-----------------------------------------------------------------------------
+// Paddle objects
+function Paddle(x, y, fill) {
+    this.h = 50;
+    this.w = 5;
 
+    this.x = x;
+    this.y = y;
+    this.fill = fill;
+}
+
+Paddle.prototype.draw = function(ctx) {
+    ctx.fillStyle = this.fill;
+    ctx.fillRect(this.x, this.y, this.w, this.h);
+}
 
 //-----------------------------------------------------------------------------
 // Helper functions
@@ -72,12 +86,13 @@ function colorBackground() {
     ctx.fillRect(0, 0, width, height);
 }
 
-function animate(b) {
+function animate(b, p) {
     ctx.clearRect(0, 0, width, height);
     colorBackground();
     b.check_collide(ctx);
     b.move(ctx);
     b.draw(ctx);
+    p.draw(ctx);
 
 }
 //-----------------------------------------------------------------------------
@@ -88,7 +103,9 @@ function init() {
     colorBackground();
     var b = new Ball(midX, midY, 5, 5, '#FFFFFF');
     b.draw(ctx);
-    setInterval(animate, 1000 / 60, b);
+    var p = new Paddle(0, midY, '#FFFFFF');
+    p.draw(ctx);
+    setInterval(animate, 1000 / 60, b, p);
 }
 
 
