@@ -67,11 +67,11 @@ Ball.prototype.move = function(ctx) {
 
 //-----------------------------------------------------------------------------
 // Paddle objects
-function Paddle(x, y, fill) {
+function Paddle( y, fill) {
     this.h = 50;
     this.w = 5;
 
-    this.x = x;
+    this.x = 0;
     this.y = y;
     this.fill = fill;
 }
@@ -103,15 +103,22 @@ function animate(b, p) {
 }
 //-----------------------------------------------------------------------------
 
+//-----------------------------------------------------------------------------
+//Event Handlers
+
+canvas.onmousemove = function(e) {
+    e.preventDefault();
+    y = e.clientY;
+    playerPaddle.updatePos(y);
+}
 
 // Init function
 function init() {
     colorBackground();
     var b = new Ball(midX, midY, 5, 5, '#FFFFFF');
     b.draw(ctx);
-    var p = new Paddle(0, midY, '#FFFFFF');
-    p.draw(ctx);
-    setInterval(animate, 1000 / 60, b, p);
+    playerPaddle.draw(ctx);
+    setInterval(animate, 1000 / 60, b, playerPaddle);
 }
 
 
