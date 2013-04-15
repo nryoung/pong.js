@@ -1,11 +1,13 @@
 // Global variables
 var canvas = document.getElementById('canvas'),
     ctx = canvas.getContext('2d'),
-    height = ctx.canvas.height,
-    width = ctx.canvas.width,
+    cHeight = ctx.canvas.height,
+    cWidth = ctx.canvas.width,
     midY = ctx.canvas.height / 2,
     midX = ctx.canvas.width / 2;
 
+// Global Game Variables
+var playerPaddle = new Paddle(midY, '#FFFFFF');
 
 //-----------------------------------------------------------------------------
 // Our ball object, actually represents the Pong to be passed around
@@ -32,13 +34,13 @@ Ball.prototype.draw = function(ctx) {
 Ball.prototype.check_collide = function(ctx) {
     // Checks if the ball has collided with the top or bottom edges
     // If it has it reverses the direction
-    if (this.y === height) {
+    if (this.y === cHeight) {
         this.vy = false;
     } else if (this.y === 0) {
         this.vy = true;
     }
 
-    if (this.x === width) {
+    if (this.x === cWidth) {
         this.vx = false;
     } else if (this.x === 0) {
         this.vx = true;
@@ -79,15 +81,19 @@ Paddle.prototype.draw = function(ctx) {
     ctx.fillRect(this.x, this.y, this.w, this.h);
 }
 
+Paddle.prototype.updatePos = function(y) {
+    this.y = y;
+}
+
 //-----------------------------------------------------------------------------
 // Helper functions
 function colorBackground() {
     ctx.fillStyle = '#000000';
-    ctx.fillRect(0, 0, width, height);
+    ctx.fillRect(0, 0, cWidth, cHeight);
 }
 
 function animate(b, p) {
-    ctx.clearRect(0, 0, width, height);
+    ctx.clearRect(0, 0, cWidth, cHeight);
     colorBackground();
     b.check_collide(ctx);
     b.move(ctx);
