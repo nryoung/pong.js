@@ -82,7 +82,7 @@ Paddle.prototype.draw = function(ctx) {
 }
 
 Paddle.prototype.updatePos = function(y) {
-    this.y = y;
+    this.y = y - 50;
 }
 
 //-----------------------------------------------------------------------------
