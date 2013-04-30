@@ -6,7 +6,6 @@ var canvas = document.getElementById('canvas'),
     midY = ctx.canvas.height / 2,
     midX = ctx.canvas.width / 2;
 
-// Global Game Variables
 
 // Paddle global variables
 var paddleHeight = 50,
@@ -14,7 +13,6 @@ var paddleHeight = 50,
     paddleOffset = 10;
 var playerPaddle = new Paddle( paddleHeight, paddleWidth, paddleOffset, midY, '#FFFFFF');
 
-//-----------------------------------------------------------------------------
 // Our ball object, actually represents the Pong to be passed around
 function Ball(x, y, w, h, fill) {
     // our constructor of sorts
@@ -67,10 +65,8 @@ Ball.prototype.move = function(ctx) {
     }
 }
 
-//-----------------------------------------------------------------------------
 
 
-//-----------------------------------------------------------------------------
 // Paddle objects
 function Paddle( h, w, x, y, fill) {
     this.h = h;
@@ -90,7 +86,6 @@ Paddle.prototype.updatePos = function(y) {
     this.y = y - 50;
 }
 
-//-----------------------------------------------------------------------------
 // Helper functions
 function colorBackground() {
     ctx.fillStyle = '#000000';
@@ -106,11 +101,8 @@ function animate(b, p) {
     p.draw(ctx);
 
 }
-//-----------------------------------------------------------------------------
 
-//-----------------------------------------------------------------------------
 //Event Handlers
-
 canvas.onmousemove = function(e) {
     e.preventDefault();
     y = e.clientY;
