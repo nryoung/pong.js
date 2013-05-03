@@ -67,10 +67,11 @@ Ball.prototype.move = function(ctx) {
 
 
 
-// Paddle objects
+// Paddle Object
 function Paddle( h, w, x, y, fill) {
     this.h = h;
     this.w = w;
+    this.midH = h / 2;
 
     this.x = x;
     this.y = y;
@@ -83,7 +84,14 @@ Paddle.prototype.draw = function(ctx) {
 }
 
 Paddle.prototype.updatePos = function(y) {
-    this.y = y - 50;
+    // Check if paddle is hitting edges
+    if (y - this.h <= 0) {
+        this.y = 0;
+    } else if( y + 5 > cHeight) {
+        this.y = cHeight - this.h;
+    } else {
+        this.y = y - this.h;
+    }
 }
 
 // Helper functions
