@@ -6,12 +6,16 @@ var canvas = document.getElementById('canvas'),
     midY = ctx.canvas.height / 2,
     midX = ctx.canvas.width / 2;
 
+// Ball global
+var ball = new Ball(midX, midY, 5, 5, '#FFFFFF');
 
 // Paddle global variables
 var paddleHeight = 50,
     paddleWidth = 10,
     paddleOffset = 10;
 var playerPaddle = new Paddle( paddleHeight, paddleWidth, paddleOffset, midY, '#FFFFFF');
+
+
 
 // Our ball object, actually represents the Pong to be passed around
 function Ball(x, y, w, h, fill) {
@@ -94,20 +98,31 @@ Paddle.prototype.updatePos = function(y) {
     }
 }
 
+// requestAnimFrame for smoother animations
+window.requestAnimationFrame = (function() {
+    return (
+           window.requestAnimationFrame       ||
+           window.webkitRequestAnimationFrame ||
+           window.mozRequestAnimationFrame    ||
+           function( callback ){
+               window.setTimeout(callback, 1000 / 60);
+           }
+        );
+})();
+
 // Helper functions
 function colorBackground() {
     ctx.fillStyle = '#000000';
     ctx.fillRect(0, 0, cWidth, cHeight);
 }
 
-function animate(b, p) {
+function render() {
     ctx.clearRect(0, 0, cWidth, cHeight);
     colorBackground();
-    b.check_collide(ctx);
-    b.move(ctx);
-    b.draw(ctx);
-    p.draw(ctx);
-
+    ball.check_collide(ctx);
+    ball.move(ctx);
+    ball.draw(ctx);
+    playerPaddle.draw(ctx);
 }
 
 //Event Handlers
@@ -118,14 +133,11 @@ canvas.onmousemove = function(e) {
 }
 
 // Init function
-function init() {
-    colorBackground();
-    var b = new Ball(midX, midY, 5, 5, '#FFFFFF');
-    b.draw(ctx);
-    playerPaddle.draw(ctx);
-    setInterval(animate, 1000 / 60, b, playerPaddle);
+function animLoop() {
+    render();
+    requestAnimationFrame(animLoop);
+    //setInterval(animate, 1000 / 60, b, playerPaddle);
 }
 
-
 // Start of the game
-init();
+animLoop();
