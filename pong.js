@@ -98,6 +98,8 @@ Paddle.prototype.updatePos = function(y) {
     }
 }
 
+// Helper functions
+
 // requestAnimFrame for smoother animations
 window.requestAnimationFrame = (function() {
     return (
@@ -110,12 +112,12 @@ window.requestAnimationFrame = (function() {
         );
 })();
 
-// Helper functions
 function colorBackground() {
     ctx.fillStyle = '#000000';
     ctx.fillRect(0, 0, cWidth, cHeight);
 }
 
+// Does the actual rendering
 function render() {
     ctx.clearRect(0, 0, cWidth, cHeight);
     colorBackground();
