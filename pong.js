@@ -50,6 +50,11 @@ Ball.prototype.check_collide = function(ctx) {
     if (this.x === cWidth) {
         this.vx = false;
     } else if (this.x === 0) {
+        //this.vx = true;
+    }
+
+    if (this.x === playerPaddle.x && this.y <= playerPaddle.y + 50)
+    {
         this.vx = true;
     }
 }
