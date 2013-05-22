@@ -134,11 +134,12 @@ function render() {
 }
 
 //Event Handlers
-canvas.onmousemove = function(e) {
+canvas.addEventListener('mousemove', function(e) {
     e.preventDefault();
-    y = e.clientY;
+    var position = canvas.getBoundingClientRect();
+    var y = e.clientY - position.top;
     playerPaddle.updatePos(y);
-}
+}, false);
 
 // Init function
 function animLoop() {
