@@ -94,12 +94,13 @@ Paddle.prototype.draw = function(ctx) {
 
 Paddle.prototype.updatePos = function(y) {
     // Check if paddle is hitting edges
-    if (y - this.h <= 0) {
+    this.y = y - this.midH
+    if (y - this.midH <= 0) {
         this.y = 0;
-    } else if( y + 5 > cHeight) {
+    } else if( y + this.midH > cHeight) {
         this.y = cHeight - this.h;
     } else {
-        this.y = y - this.h;
+        this.y = y - this.midH;
     }
 }
 
