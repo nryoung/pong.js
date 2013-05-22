@@ -68,7 +68,7 @@ Ball.prototype.move = function(ctx) {
         this.y -= 5;
     }
 
-    if (this.vx == true) {
+    if (this.vx === true) {
         this.x += 5;
     } else {
         this.x -= 5;
