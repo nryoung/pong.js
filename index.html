@@ -13,10 +13,24 @@
             margin-right: auto;
             display: block;
             cursor: none;
+            z-index: 1;
+        }
+        #menu {
+            position: absolute;
+            top: 160px;
+            left:635px;
+            z-index: 0;
+            color: #FFFFFF;
+            font-family: Droid Sans, Arial, Helvetica, sans-serif;
+            cursor: pointer;
+            border: dashed;
         }
     </style>
 </head>
 <body>
+    <div id="menu">
+        <h1 class='title'>Start Game</h1>
+    </div>
     <canvas id='canvas' width='600' height='400'>
     Canvas not supported
     </canvas>
