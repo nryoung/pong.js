@@ -13,8 +13,10 @@ var ball = new Ball(midX, midY, 5, 5, '#FFFFFF');
 // Paddle global variables
 var paddleHeight = 50,
     paddleWidth = 10,
-    paddleOffset = 10;
+    paddleOffset = 10,
+    compPaddleOffset = 580;
 var playerPaddle = new Paddle( paddleHeight, paddleWidth, paddleOffset, midY, '#FFFFFF');
+var computerPaddle = new Paddle( paddleHeight, paddleWidth, compPaddleOffset, midY, '#FFFFFF');
 
 
 
@@ -133,6 +135,7 @@ function render() {
     ball.move(ctx);
     ball.draw(ctx);
     playerPaddle.draw(ctx);
+    computerPaddle.draw(ctx);
 }
 
 //Event Handlers
