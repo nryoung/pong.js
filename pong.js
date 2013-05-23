@@ -4,7 +4,8 @@ var canvas = document.getElementById('canvas'),
     cHeight = ctx.canvas.height,
     cWidth = ctx.canvas.width,
     midY = ctx.canvas.height / 2,
-    midX = ctx.canvas.width / 2;
+    midX = ctx.canvas.width / 2,
+    menu = document.getElementById('menu');
 
 // Ball global
 var ball = new Ball(midX, midY, 5, 5, '#FFFFFF');
@@ -150,4 +151,11 @@ function animLoop() {
 }
 
 // Start of the game
-animLoop();
+menu.onclick = function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    menu.style.display = 'none';
+    animLoop();
+}
+
+colorBackground();
