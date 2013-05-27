@@ -158,6 +158,7 @@ menu.onclick = function(e) {
     e.preventDefault();
     e.stopPropagation();
     menu.style.display = 'none';
+    canvas.style.cursor = 'none';
     animLoop();
 }
 
