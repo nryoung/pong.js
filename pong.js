@@ -51,7 +51,7 @@ Ball.prototype.check_collide = function(ctx) {
     }
 
     if (this.x === cWidth) {
-        this.vx = false;
+        //this.vx = false;
     } else if (this.x === 0) {
         //this.vx = true;
     }
@@ -59,6 +59,12 @@ Ball.prototype.check_collide = function(ctx) {
     if (this.x == playerPaddle.x + playerPaddle.w) {
         if (this.y >= playerPaddle.y && this.y <= playerPaddle.y + playerPaddle.h) {
             this.vx = true;
+        }
+    }
+
+    if (this.x == computerPaddle.x - computerPaddle.w) {
+        if (this.y >= computerPaddle.y && this.y <= computerPaddle.y + computerPaddle.h) {
+            this.vx = false;
         }
     }
 }
@@ -107,6 +113,26 @@ Paddle.prototype.updatePos = function(y) {
     }
 }
 
+Paddle.prototype.move = function() {
+    // Check if the ball is greater than mid update if it is
+    if (ball.x < midX) {
+        if (ball.y > this.y) {
+            this.updatePos(this.y + this.midH + 3);
+        } else {
+            this.updatePos(this.y + this.midH - 3);
+        }
+        return;
+    }
+    // We define position by the center paddle so we have to add this
+    // in to the calculation
+    if (ball.y > this.y) {
+        this.updatePos(this.y + this.midH + 5);
+    } else {
+        this.updatePos(this.y + this.midH - 5);
+    }
+
+}
+
 // Helper functions
 
 // requestAnimFrame for smoother animations
@@ -134,6 +160,7 @@ function render() {
     ball.move(ctx);
     ball.draw(ctx);
     playerPaddle.draw(ctx);
+    computerPaddle.move();
     computerPaddle.draw(ctx);
 }
 
