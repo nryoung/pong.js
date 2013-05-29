@@ -5,7 +5,7 @@ var canvas = document.getElementById('canvas'),
     cWidth = ctx.canvas.width,
     midY = ctx.canvas.height / 2,
     midX = ctx.canvas.width / 2,
-    menu = document.getElementById('menu');
+    start = document.getElementById('subtext');
 
 // Ball global
 var ball = new Ball(midX, midY, 5, 5, '#FFFFFF');
@@ -180,7 +180,7 @@ function animLoop() {
 }
 
 // Start of the game
-menu.onclick = function(e) {
+start.onclick = function(e) {
     e.preventDefault();
     e.stopPropagation();
     menu.style.display = 'none';
