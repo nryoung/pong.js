@@ -2,9 +2,16 @@
 <html>
     <head>
         <title>Pong.js</title>
+        <link href='http://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
     <style>
         body {
             background: #eeeeee;
+        }
+        #container {
+            width: 600px;
+            height: 400px;
+            margin-left: auto;
+            margin-right: auto;
         }
         #canvas {
             padding-left: 0;
@@ -15,24 +22,29 @@
             z-index: 1;
         }
         #menu {
+            width: 600px;
+            height: 400px;
             position: absolute;
-            top: 160px;
-            left:635px;
             z-index: 0;
             color: #FFFFFF;
-            font-family: Droid Sans, Arial, Helvetica, sans-serif;
+            font-family: 'Press Start 2P', cursive;
             cursor: pointer;
-            border: dashed;
+        }
+        #pong {
+            position: relative;
+            margin-left: auto;
         }
     </style>
 </head>
 <body>
+<div id="container">
     <div id="menu">
-        <h1 class='title'>Start Game</h1>
+        <div id="pong"><h1>Pong.js</h1></div>
     </div>
-    <canvas id='canvas' width='600' height='400'>
+    <canvas id="canvas" width="600" height="400">
     Canvas not supported
     </canvas>
-<script src='pong.js'></script>
+</div>
+<script src="pong.js"></script>
 </body>
 </html>
