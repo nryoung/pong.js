@@ -5,7 +5,9 @@ var canvas = document.getElementById('canvas'),
     cWidth = ctx.canvas.width,
     midY = ctx.canvas.height / 2,
     midX = ctx.canvas.width / 2,
-    start = document.getElementById('subtext');
+    start = document.getElementById('subtext'),
+    playerScore = 0,
+    compScore = 0;
 
 // Ball global
 var ball = new Ball(midX, midY, 5, 5, '#FFFFFF');
@@ -152,10 +154,21 @@ function colorBackground() {
     ctx.fillRect(0, 0, cWidth, cHeight);
 }
 
+function checkScore() {
+    if (ball.y < 0) {
+        compScore += 1;
+    } else if (ball.y > cWidth) {
+        playerScore += 1;
+    }
+    console.log("Player Score: " + playerScore);
+    console.log("Comp Score: " + compScore);
+}
+
 // Does the actual rendering
 function render() {
     ctx.clearRect(0, 0, cWidth, cHeight);
     colorBackground();
+    checkScore();
     ball.check_collide(ctx);
     ball.move(ctx);
     ball.draw(ctx);
