@@ -179,17 +179,17 @@ function render() {
     ball.check_collide(ctx);
     ball.move(ctx);
     ball.draw(ctx);
+    playerPaddle.draw(ctx);
+    computerPaddle.move();
+    computerPaddle.draw(ctx);
     checkScore();
-
     // Someone scored so we need to reset the field
     if (!gameState) {
-        ball.resetPos(ctx);
-        gameState = true;
-    } else {
-        playerPaddle.draw(ctx);
-        computerPaddle.move();
-        computerPaddle.draw(ctx);
-    }
+        setTimeout(function(){
+            ball.resetPos(ctx);
+            gameState = true;
+        }, 100)
+    } 
 }
 
 //Event Handlers
