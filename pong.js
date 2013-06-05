@@ -155,13 +155,11 @@ function colorBackground() {
 }
 
 function checkScore() {
-    if (ball.y < 0) {
+    if (ball.x < 0) {
         compScore += 1;
-    } else if (ball.y > cWidth) {
+    } else if (ball.x > cWidth) {
         playerScore += 1;
     }
-    console.log("Player Score: " + playerScore);
-    console.log("Comp Score: " + compScore);
 }
 
 // Does the actual rendering
