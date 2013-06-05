@@ -198,11 +198,9 @@ function render() {
     renderScore(ctx);
     // Someone scored so we need to reset the field
     if (!gameState) {
-        setTimeout(function(){
-            ball.resetPos(ctx);
-            gameState = true;
-        }, 100)
-    } 
+        ball.resetPos(ctx);
+        gameState = true;
+    }
 }
 
 //Event Handlers
