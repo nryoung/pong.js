@@ -7,7 +7,8 @@ var canvas = document.getElementById('canvas'),
     midX = ctx.canvas.width / 2,
     start = document.getElementById('subtext'),
     playerScore = 0,
-    compScore = 0;
+    compScore = 0,
+    gameState = true;
 
 // Ball global
 var ball = new Ball(midX, midY, 5, 5, '#FFFFFF');
@@ -86,6 +87,12 @@ Ball.prototype.move = function(ctx) {
     }
 }
 
+Ball.prototype.resetPos = function(ctx) {
+    // Called when a player scores and the ball position needs to be reset
+    // within the canvas
+    this.y = midY;
+    this.x = midX;
+}
 
 
 // Paddle Object
@@ -157,22 +164,32 @@ function colorBackground() {
 function checkScore() {
     if (ball.x < 0) {
         compScore += 1;
+        gameState = false;
     } else if (ball.x > cWidth) {
         playerScore += 1;
+        gameState = false;
     }
+
 }
 
 // Does the actual rendering
 function render() {
     ctx.clearRect(0, 0, cWidth, cHeight);
     colorBackground();
-    checkScore();
     ball.check_collide(ctx);
     ball.move(ctx);
     ball.draw(ctx);
-    playerPaddle.draw(ctx);
-    computerPaddle.move();
-    computerPaddle.draw(ctx);
+    checkScore();
+
+    // Someone scored so we need to reset the field
+    if (!gameState) {
+        ball.resetPos(ctx);
+        gameState = true;
+    } else {
+        playerPaddle.draw(ctx);
+        computerPaddle.move();
+        computerPaddle.draw(ctx);
+    }
 }
 
 //Event Handlers
