@@ -8,7 +8,8 @@ var canvas = document.getElementById('canvas'),
     start = document.getElementById('subtext'),
     playerScore = 0,
     compScore = 0,
-    gameState = true;
+    gameState = true
+    ctx.font = "32px 'Press Start 2P', cursive";
 
 // Ball global
 var ball = new Ball(midX, midY, 5, 5, '#FFFFFF');
@@ -21,6 +22,11 @@ var paddleHeight = 50,
 var playerPaddle = new Paddle( paddleHeight, paddleWidth, paddleOffset, midY, '#FFFFFF');
 var computerPaddle = new Paddle( paddleHeight, paddleWidth, compPaddleOffset, midY, '#FFFFFF');
 
+// Score globals
+var compScoreY = 50,
+    compScoreX = midX + midX / 2 - 32,
+    playerScoreY = 50,
+    playerScoreX = midX - midX / 2;
 
 
 // Our ball object, actually represents the Pong to be passed around
@@ -172,6 +178,12 @@ function checkScore() {
 
 }
 
+function renderScore(ctx) {
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillText(compScore, compScoreX, compScoreY);
+    ctx.fillText(playerScore, playerScoreX, playerScoreY);
+}
+
 // Does the actual rendering
 function render() {
     ctx.clearRect(0, 0, cWidth, cHeight);
@@ -183,6 +195,7 @@ function render() {
     computerPaddle.move();
     computerPaddle.draw(ctx);
     checkScore();
+    renderScore(ctx);
     // Someone scored so we need to reset the field
     if (!gameState) {
         setTimeout(function(){
