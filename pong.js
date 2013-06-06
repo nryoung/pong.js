@@ -165,6 +165,28 @@ window.requestAnimationFrame = (function() {
 function renderBackground() {
     ctx.fillStyle = '#000000';
     ctx.fillRect(0, 0, cWidth, cHeight);
+    renderDashedLine(ctx, midX, 0, midX, cHeight, 10);
+}
+
+function renderDashedLine(ctx, x1, y1, x2, y2, dashLength) {
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = '#FFFFFF';
+
+    // Calculate the distance between points
+    var deltaX = x2 - x1;
+    var deltaY = y2 - y1;
+
+    // Calculate number of dashes needed
+    var numDashes = Math.floor(
+            Math.sqrt(deltaX * deltaX + deltaY * deltaY) / dashLength);
+
+    // Calculate the lineTo and moveTo's needed
+    for (var i = 0; i < numDashes; ++i) {
+        ctx[ i % 2 === 0 ? 'moveTo' : 'lineTo' ]
+            (x1 + (deltaX / numDashes) * i, y1 + (deltaY / numDashes) * i);
+    }
+
+    ctx.stroke();
 }
 
 function checkScore() {
