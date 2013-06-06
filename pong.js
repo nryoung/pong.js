@@ -162,7 +162,7 @@ window.requestAnimationFrame = (function() {
         );
 })();
 
-function colorBackground() {
+function renderBackground() {
     ctx.fillStyle = '#000000';
     ctx.fillRect(0, 0, cWidth, cHeight);
 }
@@ -187,7 +187,7 @@ function renderScore(ctx) {
 // Does the actual rendering
 function render() {
     ctx.clearRect(0, 0, cWidth, cHeight);
-    colorBackground();
+    renderBackground();
     ball.check_collide(ctx);
     ball.move(ctx);
     ball.draw(ctx);
@@ -227,4 +227,4 @@ start.onclick = function(e) {
     animLoop();
 }
 
-colorBackground();
+renderBackground();
