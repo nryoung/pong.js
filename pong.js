@@ -1,4 +1,4 @@
-// Global variables
+// Global canvas variables
 var canvas = document.getElementById('canvas'),
     ctx = canvas.getContext('2d'),
     cHeight = ctx.canvas.height,
@@ -163,31 +163,28 @@ window.requestAnimationFrame = (function() {
 })();
 
 function renderBackground() {
-    ctx.fillStyle = '#000000';
-    ctx.fillRect(0, 0, cWidth, cHeight);
-    renderDashedLine(ctx, midX, 0, midX, cHeight, 10);
-}
-
-function renderDashedLine(ctx, x1, y1, x2, y2, dashLength) {
     ctx.lineWidth = 5;
     ctx.strokeStyle = '#FFFFFF';
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(0, 0, cWidth, cHeight);
+    ctx.beginPath()
+    ctx.dashedLine(midX, 0, midX, cHeight, 10);
+    ctx.stroke()
+}
 
-    // Calculate the distance between points
-    var deltaX = x2 - x1;
-    var deltaY = y2 - y1;
+CanvasRenderingContext2D.prototype.dashedLine = function (x1, y1, x2, y2, dashLength) {
+    dashLength = dashLength === undefined ? 5 : dashLength;
 
-    // Calculate number of dashes needed
-    var numDashes = Math.floor(
-            Math.sqrt(deltaX * deltaX + deltaY * deltaY) / dashLength);
-
-    // Calculate the lineTo and moveTo's needed
+    var deltaX = x2 - x1,
+        deltaY = y2 - y1,
+        numDashes = Math.floor(
+                Math.sqrt(deltaX * deltaX + deltaY * deltaY) / dashLength);
     for (var i = 0; i < numDashes; ++i) {
         ctx[ i % 2 === 0 ? 'moveTo' : 'lineTo' ]
-            (x1 + (deltaX / numDashes) * i, y1 + (deltaY / numDashes) * i);
+            (midX + (deltaX / numDashes) * i, 0 + (deltaY / numDashes) * i);
     }
-
-    ctx.stroke();
 }
+
 
 function checkScore() {
     if (ball.x < 0) {
