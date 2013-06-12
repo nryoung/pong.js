@@ -22,13 +22,47 @@ var canvas = document.getElementById('canvas'),
 //-----------------------------------------------------------------------------/
 
 
-// Global instant objects
+// Global instance objects
 //-----------------------------------------------------------------------------/
 var ball = new Ball(midX, midY, 5, 5, '#FFFFFF');
 var playerPaddle = new Paddle( paddleHeight, paddleWidth, paddleOffset, midY, '#FFFFFF');
 var computerPaddle = new Paddle( paddleHeight, paddleWidth, compPaddleOffset, midY, '#FFFFFF');
+var game = new Game(compScoreX, compScoreY, playerScoreX, playerScoreY);
 //-----------------------------------------------------------------------------/
 
+// Game definition
+//-----------------------------------------------------------------------------/
+function Game(backgroundColor, compScoreX, compScoreY, playerScoreX, playerScoreY) {
+
+    // Player scores will always start out at zero
+    this.compScore = 0;
+    this.playerScore = 0;
+
+    // Position of player/comp scores on the canvas
+    this.compScoreX = compScoreX;
+    this.compScoreY = compScoreY;
+    this.playerScoreX = playerScoreX;
+    this.playerScoreY = playerScoreY;
+
+    this.gameState = true;
+
+    // Canvas/Game defaults
+    this.backgroundColor = '#000000';
+    this.lineWidth = 5;
+    this.strokeStyle = '#FFFFFF';
+}
+
+Game.prototype.renderBackground = function(ctx) {
+    ctx.lineWidth = this.lineWidth;
+    ctx.strokeStyle = this.strokeStyle;
+    ctx.fillStyle = this.backgroundColor;
+    ctx.fillRect(0, 0, cWidth, cHeight);
+    ctx.beginPath()
+    ctx.dashedLine(midX, 0, midX, cHeight, 10);
+    ctx.stroke()
+}
+
+//-----------------------------------------------------------------------------/
 
 // Ball definition
 //-----------------------------------------------------------------------------/
@@ -190,15 +224,6 @@ window.requestAnimationFrame = (function() {
         );
 })();
 
-function renderBackground() {
-    ctx.lineWidth = 5;
-    ctx.strokeStyle = '#FFFFFF';
-    ctx.fillStyle = '#000000';
-    ctx.fillRect(0, 0, cWidth, cHeight);
-    ctx.beginPath()
-    ctx.dashedLine(midX, 0, midX, cHeight, 10);
-    ctx.stroke()
-}
 
 CanvasRenderingContext2D.prototype.dashedLine = function (x1, y1, x2, y2, dashLength) {
     dashLength = dashLength === undefined ? 5 : dashLength;
@@ -214,6 +239,13 @@ CanvasRenderingContext2D.prototype.dashedLine = function (x1, y1, x2, y2, dashLe
 }
 
 
+
+function renderScore(ctx) {
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillText(compScore, compScoreX, compScoreY);
+    ctx.fillText(playerScore, playerScoreX, playerScoreY);
+}
+
 function checkScore() {
     if (ball.x < 0) {
         compScore += 1;
@@ -225,16 +257,10 @@ function checkScore() {
 
 }
 
-function renderScore(ctx) {
-    ctx.fillStyle = '#FFFFFF';
-    ctx.fillText(compScore, compScoreX, compScoreY);
-    ctx.fillText(playerScore, playerScoreX, playerScoreY);
-}
-
 // Does the actual rendering
 function render() {
     ctx.clearRect(0, 0, cWidth, cHeight);
-    renderBackground();
+    game.renderBackground(ctx);
     ball.checkCollide(ctx);
     ball.move(ctx);
     ball.draw(ctx);
@@ -278,5 +304,5 @@ start.onclick = function(e) {
     animLoop();
 }
 
-renderBackground();
+game.renderBackground(ctx);
 //-----------------------------------------------------------------------------/
