@@ -1,4 +1,5 @@
-// Global canvas variables
+// Global Canvas variables
+//-----------------------------------------------------------------------------/
 var canvas = document.getElementById('canvas'),
     ctx = canvas.getContext('2d'),
     cHeight = ctx.canvas.height,
@@ -9,24 +10,24 @@ var canvas = document.getElementById('canvas'),
     playerScore = 0,
     compScore = 0,
     gameState = true
-    ctx.font = "32px 'Press Start 2P', cursive";
-
-// Ball global
-var ball = new Ball(midX, midY, 5, 5, '#FFFFFF');
-
-// Paddle global variables
-var paddleHeight = 50,
+    ctx.font = "32px 'Press Start 2P', cursive",
+    paddleHeight = 50,
     paddleWidth = 10,
     paddleOffset = 10,
-    compPaddleOffset = 580;
-var playerPaddle = new Paddle( paddleHeight, paddleWidth, paddleOffset, midY, '#FFFFFF');
-var computerPaddle = new Paddle( paddleHeight, paddleWidth, compPaddleOffset, midY, '#FFFFFF');
-
-// Score globals
-var compScoreY = 50,
+    compPaddleOffset = 580,
+    compScoreY = 50,
     compScoreX = midX + midX / 2 - 32,
     playerScoreY = 50,
     playerScoreX = midX - midX / 2;
+//-----------------------------------------------------------------------------/
+
+
+// Global instant objects
+//-----------------------------------------------------------------------------/
+var ball = new Ball(midX, midY, 5, 5, '#FFFFFF');
+var playerPaddle = new Paddle( paddleHeight, paddleWidth, paddleOffset, midY, '#FFFFFF');
+var computerPaddle = new Paddle( paddleHeight, paddleWidth, compPaddleOffset, midY, '#FFFFFF');
+//-----------------------------------------------------------------------------/
 
 
 // Ball definition
