@@ -227,7 +227,7 @@ function renderScore(ctx) {
 function render() {
     ctx.clearRect(0, 0, cWidth, cHeight);
     renderBackground();
-    ball.check_collide(ctx);
+    ball.checkCollide(ctx);
     ball.move(ctx);
     ball.draw(ctx);
     playerPaddle.draw(ctx);
