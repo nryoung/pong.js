@@ -6,19 +6,11 @@ var canvas = document.getElementById('canvas'),
     cWidth = ctx.canvas.width,
     midY = ctx.canvas.height / 2,
     midX = ctx.canvas.width / 2,
-    start = document.getElementById('subtext'),
-    playerScore = 0,
-    compScore = 0,
-    gameState = true
-    ctx.font = "32px 'Press Start 2P', cursive",
+    start = document.getElementById('subtext')
     paddleHeight = 50,
     paddleWidth = 10,
     paddleOffset = 10,
-    compPaddleOffset = 580,
-    compScoreY = 50,
-    compScoreX = midX + midX / 2 - 32,
-    playerScoreY = 50,
-    playerScoreX = midX - midX / 2;
+    compPaddleOffset = 580;
 //-----------------------------------------------------------------------------/
 
 
@@ -27,22 +19,22 @@ var canvas = document.getElementById('canvas'),
 var ball = new Ball(midX, midY, 5, 5, '#FFFFFF');
 var playerPaddle = new Paddle( paddleHeight, paddleWidth, paddleOffset, midY, '#FFFFFF');
 var computerPaddle = new Paddle( paddleHeight, paddleWidth, compPaddleOffset, midY, '#FFFFFF');
-var game = new Game(compScoreX, compScoreY, playerScoreX, playerScoreY);
+var game = new Game();
 //-----------------------------------------------------------------------------/
 
 // Game definition
 //-----------------------------------------------------------------------------/
-function Game(backgroundColor, compScoreX, compScoreY, playerScoreX, playerScoreY) {
+function Game() {
 
     // Player scores will always start out at zero
     this.compScore = 0;
     this.playerScore = 0;
 
     // Position of player/comp scores on the canvas
-    this.compScoreX = compScoreX;
-    this.compScoreY = compScoreY;
-    this.playerScoreX = playerScoreX;
-    this.playerScoreY = playerScoreY;
+    this.compScoreX = midX + midX / 2 - 32,
+    this.compScoreY = 50;
+    this.playerScoreX = midX - midX / 2;
+    this.playerScoreY = 50;
 
     this.gameState = true;
 
@@ -50,6 +42,7 @@ function Game(backgroundColor, compScoreX, compScoreY, playerScoreX, playerScore
     this.backgroundColor = '#000000';
     this.lineWidth = 5;
     this.strokeStyle = '#FFFFFF';
+    this.font = "32px 'Press Start 2P', cursive";
 }
 
 Game.prototype.renderBackground = function(ctx) {
@@ -62,6 +55,23 @@ Game.prototype.renderBackground = function(ctx) {
     ctx.stroke()
 }
 
+Game.prototype.checkScore = function() {
+    if (ball.x < 0) {
+        this.compScore += 1;
+        this.gameState = false;
+    } else if (ball.x > cWidth) {
+        this.playerScore += 1;
+        this.gameState = false;
+    }
+
+}
+
+Game.prototype.renderScore = function(ctx) {
+    ctx.font = this.font;
+    ctx.fillStyle = this.strokeStyle;
+    ctx.fillText(this.compScore, this.compScoreX, this.compScoreY);
+    ctx.fillText(this.playerScore, this.playerScoreX, this.playerScoreY);
+}
 //-----------------------------------------------------------------------------/
 
 // Ball definition
@@ -224,7 +234,7 @@ window.requestAnimationFrame = (function() {
         );
 })();
 
-
+// Extend the 2d canvas context as it does not have an API for drawing dashed lines
 CanvasRenderingContext2D.prototype.dashedLine = function (x1, y1, x2, y2, dashLength) {
     dashLength = dashLength === undefined ? 5 : dashLength;
 
@@ -239,24 +249,6 @@ CanvasRenderingContext2D.prototype.dashedLine = function (x1, y1, x2, y2, dashLe
 }
 
 
-
-function renderScore(ctx) {
-    ctx.fillStyle = '#FFFFFF';
-    ctx.fillText(compScore, compScoreX, compScoreY);
-    ctx.fillText(playerScore, playerScoreX, playerScoreY);
-}
-
-function checkScore() {
-    if (ball.x < 0) {
-        compScore += 1;
-        gameState = false;
-    } else if (ball.x > cWidth) {
-        playerScore += 1;
-        gameState = false;
-    }
-
-}
-
 // Does the actual rendering
 function render() {
     ctx.clearRect(0, 0, cWidth, cHeight);
@@ -267,12 +259,12 @@ function render() {
     playerPaddle.draw(ctx);
     computerPaddle.move();
     computerPaddle.draw(ctx);
-    checkScore();
-    renderScore(ctx);
+    game.checkScore();
+    game.renderScore(ctx);
     // Someone scored so we need to reset the field
-    if (!gameState) {
+    if (!game.gameState) {
         ball.resetPos(ctx);
-        gameState = true;
+        game.gameState = true;
     }
 }
 //-----------------------------------------------------------------------------/
