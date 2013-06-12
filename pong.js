@@ -42,6 +42,9 @@ function Ball(x, y, w, h, fill) {
     // direction of where the ball is going
     this.vx = true;
     this.vy = true;
+
+    // speed of the ball
+    this.vy_speed = 5;
 }
 
 Ball.prototype.draw = function(ctx) {
@@ -81,9 +84,9 @@ Ball.prototype.check_collide = function(ctx) {
 Ball.prototype.move = function(ctx) {
     // Moves the ball depending on the direction of velocity
     if (this.vy === true) {
-        this.y += 5;
+        this.y += this.vy_speed;
     } else if (this.vy === false) {
-        this.y -= 5;
+        this.y -= this.vy_speed;
     }
 
     if (this.vx === true) {
@@ -91,6 +94,16 @@ Ball.prototype.move = function(ctx) {
     } else {
         this.x -= 5;
     }
+
+    // If the ball is outside the bounds of the canvas then we just set
+    // it to the canvas limits
+    if (this.y > cHeight) {
+            this.y = cHeight;
+        }
+    else if (this.y < 0) {
+            this.y = 0;
+        }
+
 }
 
 Ball.prototype.resetPos = function(ctx) {
@@ -98,6 +111,13 @@ Ball.prototype.resetPos = function(ctx) {
     // within the canvas
     this.y = midY;
     this.x = midX;
+    this.vy_speed = this.randomizeMovement();
+}
+
+Ball.prototype.randomizeMovement = function() {
+    var min = 5,
+        max = 10;
+    return Math.floor( Math.random() * (max - min) + min);
 }
 
 
