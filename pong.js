@@ -29,7 +29,8 @@ var compScoreY = 50,
     playerScoreX = midX - midX / 2;
 
 
-// Our ball object, actually represents the Pong to be passed around
+// Ball definition
+//-----------------------------------------------------------------------------/
 function Ball(x, y, w, h, fill) {
     // our constructor of sorts
     // unsafe, need to add type checking
@@ -119,9 +120,11 @@ Ball.prototype.randomizeMovement = function() {
         max = 10;
     return Math.floor( Math.random() * (max - min) + min);
 }
+//-----------------------------------------------------------------------------/
 
 
 // Paddle Object
+//-----------------------------------------------------------------------------/
 function Paddle( h, w, x, y, fill) {
     this.h = h;
     this.w = w;
@@ -167,8 +170,12 @@ Paddle.prototype.move = function() {
     }
 
 }
+//-----------------------------------------------------------------------------/
+
 
 // Helper functions
+//-----------------------------------------------------------------------------/
+
 
 // requestAnimFrame for smoother animations
 window.requestAnimationFrame = (function() {
@@ -241,16 +248,20 @@ function render() {
         gameState = true;
     }
 }
+//-----------------------------------------------------------------------------/
 
 //Event Handlers
+//-----------------------------------------------------------------------------/
 canvas.addEventListener('mousemove', function(e) {
     e.preventDefault();
     var position = canvas.getBoundingClientRect();
     var y = e.clientY - position.top;
     playerPaddle.updatePos(y);
 }, false);
+//-----------------------------------------------------------------------------/
 
-// Init function
+// Init functions
+//-----------------------------------------------------------------------------/
 function animLoop() {
     render();
     requestAnimationFrame(animLoop);
@@ -267,3 +278,4 @@ start.onclick = function(e) {
 }
 
 renderBackground();
+//-----------------------------------------------------------------------------/
