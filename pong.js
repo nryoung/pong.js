@@ -53,7 +53,7 @@ Ball.prototype.draw = function(ctx) {
     ctx.fillRect(this.x, this.y, this.w, this.h);
 }
 
-Ball.prototype.check_collide = function(ctx) {
+Ball.prototype.checkCollide = function(ctx) {
     // Checks if the ball has collided with the top or bottom edges
     // If it has it reverses the direction
     if (this.y === cHeight) {
