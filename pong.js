@@ -43,6 +43,9 @@ function Game() {
     this.lineWidth = 5;
     this.strokeStyle = '#FFFFFF';
     this.font = "32px 'Press Start 2P', cursive";
+
+    // Game sounds
+    this.scoreSound = Audio("peep.ogg")
 }
 
 Game.prototype.renderBackground = function(ctx) {
@@ -59,9 +62,11 @@ Game.prototype.checkScore = function() {
     if (ball.x < 0) {
         this.compScore += 1;
         this.gameState = false;
+        this.scoreSound.play();
     } else if (ball.x > cWidth) {
         this.playerScore += 1;
         this.gameState = false;
+        this.scoreSound.play();
     }
 
 }
@@ -91,6 +96,9 @@ function Ball(x, y, w, h, fill) {
 
     // speed of the ball
     this.vy_speed = 5;
+
+    // sound when the ball collides
+    this.collideSound = new Audio("plop.ogg")
 }
 
 Ball.prototype.draw = function(ctx) {
@@ -104,8 +112,10 @@ Ball.prototype.checkCollide = function(ctx) {
     // If it has it reverses the direction
     if (this.y === cHeight) {
         this.vy = false;
+        this.collideSound.play();
     } else if (this.y === 0) {
         this.vy = true;
+        this.collideSound.play();
     }
 
     if (this.x === cWidth) {
@@ -117,12 +127,14 @@ Ball.prototype.checkCollide = function(ctx) {
     if (this.x == playerPaddle.x + playerPaddle.w) {
         if (this.y >= playerPaddle.y && this.y <= playerPaddle.y + playerPaddle.h) {
             this.vx = true;
+            this.collideSound.play();
         }
     }
 
     if (this.x == computerPaddle.x - computerPaddle.w) {
         if (this.y >= computerPaddle.y && this.y <= computerPaddle.y + computerPaddle.h) {
             this.vx = false;
+            this.collideSound.play();
         }
     }
 }
