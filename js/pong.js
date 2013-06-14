@@ -211,19 +211,22 @@ Paddle.prototype.updatePos = function(y) {
 Paddle.prototype.move = function() {
     // Check if the ball is greater than mid update if it is
     if (ball.x < midX) {
+
+        // We define position by the center paddle so we have to add
+        // this.midH in to the calculation
+
         if (ball.y > this.y) {
-            this.updatePos(this.y + this.midH + 3);
+            this.updatePos(this.y + this.midH + (ball.vy_speed - 2));
         } else {
-            this.updatePos(this.y + this.midH - 3);
+            this.updatePos(this.y + this.midH - (ball.vy_speed - 2));
         }
         return;
     }
-    // We define position by the center paddle so we have to add this
-    // in to the calculation
+
     if (ball.y > this.y) {
-        this.updatePos(this.y + this.midH + 5);
+        this.updatePos(this.y + this.midH + ball.vy_speed);
     } else {
-        this.updatePos(this.y + this.midH - 5);
+        this.updatePos(this.y + this.midH - ball.vy_speed);
     }
 
 }
