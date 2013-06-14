@@ -296,7 +296,6 @@ canvas.addEventListener('mousemove', function(e) {
 function animLoop() {
     render();
     requestAnimationFrame(animLoop);
-    //setInterval(animate, 1000 / 60, b, playerPaddle);
 }
 
 // Start of the game
