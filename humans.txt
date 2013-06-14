@@ -1,0 +1,17 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    Nic Young -- Project Creator and Developer -- nryoung@gmail.com
+
+# THANKS
+
+    gfcarvalho -- For helping solve performance issues with drawing dashed lines in Canvas
+    captaincrunch80 -- For providing awesome 8bit sounds at http://opengameart.org
+    Awesome people that created H5BP -- This should be obvious
+
+# TECHNOLOGY COLOPHON
+
+    HTML5, CSS3
+    Normalize.css, jQuery, Modernizr
