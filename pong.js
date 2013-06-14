@@ -45,7 +45,7 @@ function Game() {
     this.font = "32px 'Press Start 2P', cursive";
 
     // Game sounds
-    this.scoreSound = Audio("peep.ogg")
+    this.scoreSound = Audio("sound/peep.ogg")
 }
 
 Game.prototype.renderBackground = function(ctx) {
@@ -98,7 +98,7 @@ function Ball(x, y, w, h, fill) {
     this.vy_speed = 5;
 
     // sound when the ball collides
-    this.collideSound = new Audio("plop.ogg")
+    this.collideSound = new Audio("sound/plop.ogg")
 }
 
 Ball.prototype.draw = function(ctx) {
